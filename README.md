@@ -1,2 +1,2 @@
 # Proyecto-Hans-Sempe-1083920
-Proyecto para Programación avanzada "Salud para tu sonrisa"
+Proyecto para Estructura de datos I "Salud para tu sonrisa"

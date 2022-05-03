@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Data;
 using Proyecto_Hans_Sempe_1083920.NonLineartStructures;
 using Proyecto_Hans_Sempe_1083920.LinearStructures;
-//using CsvHelper;
+using CsvHelper;
 using System.IO;
 using System.Globalization;
 using Microsoft.AspNetCore.Hosting;
@@ -45,8 +45,6 @@ namespace Proyecto_Hans_Sempe_1083920.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-
 
         public IActionResult mostrarArbolAVL(int orden)
         {

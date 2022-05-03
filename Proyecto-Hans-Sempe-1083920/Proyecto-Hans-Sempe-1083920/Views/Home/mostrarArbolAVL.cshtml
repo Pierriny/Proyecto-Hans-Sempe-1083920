@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewData["Title"] = "mostrarArbolAVL";
+}
+
+<h1>mostrarArbolAVL</h1>
+
+
+<h6>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>
+                        <form asp-controller="Home" asp-action="buscarID">
+                            <label>Ingrese el ID</label>
+                            <input type="text" name="_id" />
+                            <input type="submit" value="Buscar ID" class="btn btn-primary" />
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-controller="Home" asp-action="buscarSerie">
+                            <label>Ingrese el número de serie</label>
+                            <input type="text" name="_serie" />
+                            <input type="submit" value="Buscar Serie" class="btn btn-primary" />
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-controller="Home" asp-action="buscarEmail">
+                            <label>Ingrese el correo</label>
+                            <input type="email" name="_email" />
+                            <input type="submit" value="Buscar Correo" class="btn btn-primary" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</h6>
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Datos del árbol AVL</h1>
+            <h3>@ViewBag.Altura</h3>
+            <h3>@ViewBag.Nodes</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+
+            <table class="table table-bordered table-striped">
+                <tr class="table-success">
+                    <th>DPI</th>
+                    <th>Primer Nombre</th>
+                    <th>Segundo nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Edad</th>
+                    <th>Telefono</th>
+                    <th>Meses desde ultima visita</th>
+                    <th>Ultimo diagnostico</th>
+                </tr>
+                @foreach (var item in ViewData["vehiculos"] as List<Paciente>)
+                {
+            <tr>
+                <td>@item.DPI</td>
+                <td>@item.Nombre1</td>
+                <td>@item.Nombre2</td>
+                <td>@item.Apellido1</td>
+                <td>@item.Apellido2</td>
+                <td>@item.Edad</td>
+                <td>@item.Telefono</td>
+                <td>@item.LastConsulta</td>
+                <td>@item.Descripcion</td>
+            </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
+

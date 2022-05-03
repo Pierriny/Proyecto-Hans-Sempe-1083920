@@ -60,8 +60,9 @@
                     <th>Telefono</th>
                     <th>Meses desde ultima visita</th>
                     <th>Ultimo diagnostico</th>
+                    <th>Siguiente consulta recomendara</th>
                 </tr>
-                @foreach (var item in ViewData["vehiculos"] as List<Paciente>)
+                @foreach (var item in ViewData["Paciente"] as List<Paciente>)
                 {
             <tr>
                 <td>@item.DPI</td>
@@ -73,6 +74,7 @@
                 <td>@item.Telefono</td>
                 <td>@item.LastConsulta</td>
                 <td>@item.Descripcion</td>
+                <td>@item.NextConsulta</td>
             </tr>
                 }
 

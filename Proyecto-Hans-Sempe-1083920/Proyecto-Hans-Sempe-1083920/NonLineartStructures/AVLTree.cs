@@ -91,9 +91,35 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
                 InOrder(raiz.Derecha, traversal);
             }
         }
+
+
         public virtual Boolean Contains(T item, IComparer<T> comparer)
         {
             return Contains(this.Raiz, item, comparer);
+        }
+        public virtual Boolean ContainsFiltrer(T item, IComparer<T> comparer)
+        {
+            return Filtrer(this.Raiz, item, comparer);
+        }
+
+        public virtual Boolean Filtrer(NodeAVL<T> raiz, T item, IComparer<T> comparer)
+        {
+            if (raiz == null)
+            {
+                return false;
+            }
+            if (comparer.Compare(item, raiz.value) < 0)
+            {
+                return Contains(raiz.Izquierda, item, comparer);
+            }
+            else
+            {
+                if (comparer.Compare(item, raiz.value) > 0)
+                {
+                    return Contains(raiz.Derecha, item, comparer);
+                }
+            }
+            return true;
         }
         public virtual Boolean Contains(NodeAVL<T> raiz, T item, IComparer<T> comparer)
         {

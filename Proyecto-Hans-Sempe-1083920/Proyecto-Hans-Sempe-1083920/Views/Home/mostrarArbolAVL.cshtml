@@ -1,10 +1,11 @@
-﻿
+﻿@model IEnumerable<Proyecto_Hans_Sempe_1083920.Models.Paciente>
+
 @{
     ViewData["Title"] = "mostrarArbolAVL";
+
 }
 
-<h1>mostrarArbolAVL</h1>
-
+<h4>Registre Interno de la Clinica Dental </h4>
 
 <h6>
     <div class="row">
@@ -12,24 +13,17 @@
             <table class="table table-bordered table-striped">
                 <tr>
                     <td>
-                        <form asp-controller="Home" asp-action="buscarID">
-                            <label>Ingrese el ID</label>
-                            <input type="text" name="_id" />
-                            <input type="submit" value="Buscar ID" class="btn btn-primary" />
+                        <form asp-controller="Home" asp-action="buscarNombre">
+                            <label>Ingrese el Primer nombre del paciente</label>
+                            <input type="text" name="_name" />
+                            <input type="submit" value="Buscar Paciente" class="btn btn-primary" />
                         </form>
                     </td>
                     <td>
-                        <form asp-controller="Home" asp-action="buscarSerie">
-                            <label>Ingrese el número de serie</label>
-                            <input type="text" name="_serie" />
-                            <input type="submit" value="Buscar Serie" class="btn btn-primary" />
-                        </form>
-                    </td>
-                    <td>
-                        <form asp-controller="Home" asp-action="buscarEmail">
-                            <label>Ingrese el correo</label>
-                            <input type="email" name="_email" />
-                            <input type="submit" value="Buscar Correo" class="btn btn-primary" />
+                        <form asp-controller="Home" asp-action="buscarDPI">
+                            <label>Ingrese el número de DPI del paciente</label>
+                            <input type="text" name="_dpi" />
+                            <input type="submit" value="Buscar Paciente" class="btn btn-primary" />
                         </form>
                     </td>
                 </tr>
@@ -38,13 +32,46 @@
     </div>
 </h6>
 <br />
+
+
+
+
+<h6>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>
+                        <form asp-controller="Home" asp-action="Filtrar">
+                            <label>A que pasientes le desea aplicar seguimiento</label>
+                            <input type="text" name="_Seguimiento" />
+                            <input type="submit" value="Aplicar Seguimiento" class="btn btn-primary" />
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</h6>
+<br />
+
+<br />
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>Datos del árbol AVL</h1>
-            <h3>@ViewBag.Altura</h3>
-            <h3>@ViewBag.Nodes</h3>
+            <h4>Datos del árbol AVL</h4>
+            <h4>@ViewBag.Altura</h4>
+            <h4>@ViewBag.Nodes</h4>
         </div>
+    </div>
+    <div>
+        <h5>
+            <p margin:0 auto>
+                <a asp-action="mostrarArbolAVL" asp-route-orden="0">Ordenar por DPI</a>&ensp;
+                <a asp-action="mostrarArbolAVL" asp-route-orden="1">Ordenar por Primer Nombre</a>&ensp;
+                @ViewBag.tiempo
+            </p>
+        </h5>
     </div>
     <div class="row">
         <div class="col-12">
@@ -64,18 +91,18 @@
                 </tr>
                 @foreach (var item in ViewData["Paciente"] as List<Paciente>)
                 {
-            <tr>
-                <td>@item.DPI</td>
-                <td>@item.Nombre1</td>
-                <td>@item.Nombre2</td>
-                <td>@item.Apellido1</td>
-                <td>@item.Apellido2</td>
-                <td>@item.Edad</td>
-                <td>@item.Telefono</td>
-                <td>@item.LastConsulta</td>
-                <td>@item.Descripcion</td>
-                <td>@item.NextConsulta</td>
-            </tr>
+                    <tr>
+                        <td>@item.DPI</td>
+                        <td>@item.Nombre1</td>
+                        <td>@item.Nombre2</td>
+                        <td>@item.Apellido1</td>
+                        <td>@item.Apellido2</td>
+                        <td>@item.Edad</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.LastConsulta</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.NextConsulta</td>
+                    </tr>
                 }
 
             </table>

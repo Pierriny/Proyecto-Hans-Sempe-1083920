@@ -1,7 +1,10 @@
-﻿@model IEnumerable<Proyecto_Hans_Sempe_1083920.Models.Paciente>
+﻿
 
 @{
     ViewData["Title"] = "mostrarArbolAVL";
+
+     
+
 
 }
 
@@ -16,6 +19,7 @@
                         <form asp-controller="Home" asp-action="buscarNombre">
                             <label>Ingrese el Primer nombre del paciente</label>
                             <input type="text" name="_name" />
+
                             <input type="submit" value="Buscar Paciente" class="btn btn-primary" />
                         </form>
                     </td>
@@ -23,6 +27,7 @@
                         <form asp-controller="Home" asp-action="buscarDPI">
                             <label>Ingrese el número de DPI del paciente</label>
                             <input type="text" name="_dpi" />
+
                             <input type="submit" value="Buscar Paciente" class="btn btn-primary" />
                         </form>
                     </td>
@@ -35,41 +40,27 @@
 
 
 
-
-<h6>
-    <div class="row">
-        <div class="col-12">
-            <table class="table table-bordered table-striped">
-                <tr>
-                    <td>
-                        <form asp-controller="Home" asp-action="Filtrar">
-                            <label>A que pasientes le desea aplicar seguimiento</label>
-                            <input type="text" name="_Seguimiento" />
-                            <input type="submit" value="Aplicar Seguimiento" class="btn btn-primary" />
-                        </form>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</h6>
-<br />
-
 <br />
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h4>Datos del árbol AVL</h4>
-            <h4>@ViewBag.Altura</h4>
-            <h4>@ViewBag.Nodes</h4>
+            <h6>Datos del árbol AVL</h6>
+            <h6>@ViewBag.Altura</h6>
+            <h6>@ViewBag.Nodes</h6>
+            <h6>@ViewBag.FyH</h6>
         </div>
     </div>
     <div>
         <h5>
             <p margin:0 auto>
-                <a asp-action="mostrarArbolAVL" asp-route-orden="0">Ordenar por DPI</a>&ensp;
+                
+                <a asp-action="mostrarArbolAVL" asp-route-orden="2">Ordenar por DPI</a>&ensp;
                 <a asp-action="mostrarArbolAVL" asp-route-orden="1">Ordenar por Primer Nombre</a>&ensp;
+                <br />
+                <a asp-action="mostrarArbolAVL" asp-route-orden="3">¡Hora de dar seguimiento a los pacientes!</a>&ensp;
+                <br />
                 @ViewBag.tiempo
+                @ViewBag.Hora
             </p>
         </h5>
     </div>
@@ -87,10 +78,10 @@
                     <th>Telefono</th>
                     <th>Meses desde ultima visita</th>
                     <th>Ultimo diagnostico</th>
-                    <th>Siguiente consulta recomendara</th>
+                    <th>Seguimiento a aplicar</th>
                 </tr>
                 @foreach (var item in ViewData["Paciente"] as List<Paciente>)
-                {
+                 {
                     <tr>
                         <td>@item.DPI</td>
                         <td>@item.Nombre1</td>
@@ -103,13 +94,16 @@
                         <td>@item.Descripcion</td>
                         <td>@item.NextConsulta</td>
                     </tr>
-                }
-
+                 }
             </table>
+
+
 
         </div>
     </div>
 </div>
+
+
 <div>
     <a asp-action="Index">Back to Home</a>
 </div>

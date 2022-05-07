@@ -6,11 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Proyecto_Hans_Sempe_1083920.ADT;
 
+//Se utilizo el mismo árbol avl que se creo en el lbaoratorio 3
+
 namespace Proyecto_Hans_Sempe_1083920.LinearStructures
 {
     public class CustomLinkedList<T> : ICustomLinkedList<T>, IEnumerable<T>, ISortable<T>
     {
-
         private int count;
         private Node<T> start;
         private Node<T> end;
@@ -122,6 +123,7 @@ namespace Proyecto_Hans_Sempe_1083920.LinearStructures
         {
             return (count == 0);
         }
+
         public int Search(T data, IComparer<T> comparer)
         {
             Node<T> sData = new Node<T>();
@@ -178,6 +180,7 @@ namespace Proyecto_Hans_Sempe_1083920.LinearStructures
                 }
             }
         }
+
         public void Swap(ref Node<T> a, ref Node<T> b)
         {
             T aux = b.value;

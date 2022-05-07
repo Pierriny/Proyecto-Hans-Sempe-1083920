@@ -53,12 +53,17 @@ namespace Proyecto_Hans_Sempe_1083920.Controllers
         {
             Recorrido<Paciente> nuevoRecorrido = new Recorrido<Paciente>();
             arbolPacientesAVL.InOrder(nuevoRecorrido);
-            arbolPacientesAVL = null;       
+            arbolPacientesAVL = null;
+            DateTime time = new DateTime();
+            DateTime time2 = new DateTime();
+            DateTime time3 = new DateTime();
+            DateTime time4 = new DateTime();
             GC.Collect();
             if (orden == 1)
             {
                 stopwatch.Reset();
                 stopwatch.Start();
+                
                 arbolPacientesAVL = new AVLTree<Paciente>();
                 foreach (var item in nuevoRecorrido.arbolEnLista as List<Paciente>)
                 {
@@ -67,61 +72,55 @@ namespace Proyecto_Hans_Sempe_1083920.Controllers
                 nuevoRecorrido = null;
                 stopwatch.Stop();
                 var tiempo = stopwatch.ElapsedMilliseconds;
+                time2 = DateTime.Now;
+
                 ViewBag.tiempo = "Tardó " + tiempo + " ms o " + stopwatch.ElapsedTicks + " ticks en ordenarse.";
+                ViewBag.Hora = "Fecha y hora que se hizo el ordenamiento: " + time2;
+            }
+            else if(orden == 2)
+            {
+                stopwatch.Reset();
+                stopwatch.Start();
+                arbolPacientesAVL = new AVLTree<Paciente>();
+                foreach (var item in nuevoRecorrido.arbolEnLista as List<Paciente>)
+                {
+                    arbolPacientesAVL.Add(item, new Models.Comparadores.ComparerDPI());
+                }
+                nuevoRecorrido = null;
+                stopwatch.Stop();
+                var tiempo = stopwatch.ElapsedMilliseconds;
+                time3 = DateTime.Now;
+
+                ViewBag.tiempo = "Tardó " + tiempo + " ms o " + stopwatch.ElapsedTicks + " ticks en ordenarse.";
+                ViewBag.Hora = "Fecha y hora que se hizo el ordenamiento: " + time3;
             }
             else
             {
                 stopwatch.Reset();
                 stopwatch.Start();
                 arbolPacientesAVL = new AVLTree<Paciente>();
+
                 foreach (var item in nuevoRecorrido.arbolEnLista as List<Paciente>)
                 {
-                    arbolPacientesAVL.Add(item, new Models.Comparadores.ComparerDPI());
+                    arbolPacientesAVL.Add(item, new Models.Comparadores.ComparerDPIfiltrados());
                 }
                 nuevoRecorrido = null;
                 stopwatch.Stop();
                 var tiempo = stopwatch.ElapsedMilliseconds;
-                ViewBag.tiempo = "Tardó " + tiempo + " ms y " + stopwatch.ElapsedTicks + " ticks en ordenarse.";
+                time4 = DateTime.Now;
+                ViewBag.tiempo = "Tardó " + tiempo + " ms o " + stopwatch.ElapsedTicks + " ticks en ordenarse.";
+                ViewBag.Hora = "Fecha y hora a la que se aplico seguimiento a los pacientes: " + time4;
             }
+
+            time = DateTime.Now;
             GC.Collect();
             nuevoRecorrido = new Recorrido<Paciente>();
             arbolPacientesAVL.InOrder(nuevoRecorrido);
             ViewBag.Altura = "El árbol tiene una altura de " + arbolPacientesAVL.getAltura();
             ViewBag.Nodes = "El árbol tiene  " + arbolPacientesAVL.getNodes() + " elementos.";
+            ViewBag.FyH = "Fecha y hora a la que se accedio al registro de pacientes: " + time;
             ViewData["Paciente"] = nuevoRecorrido.arbolEnLista;
             return View();
-
-
-
-
-            /*
-       
-            orden = 1;
-            if (orden == 1)
-            {
-                stopwatch.Reset();
-                stopwatch.Start();
-                arbolPacientesAVL = new AVLTree<Paciente>();
-                foreach (var item in nuevoRecorrido.arbolEnLista as List<Paciente>)
-                {
-                    arbolPacientesAVL.Add(item, new Models.Comparadores.ComparerDPI());
-                }
-                nuevoRecorrido = null;
-                stopwatch.Stop();
-                var tiempo = stopwatch.ElapsedMilliseconds;
-                ViewBag.tiempo = "tardp " + tiempo + "ms o " + stopwatch.ElapsedTicks + " ticks en ordenarse.";
-            }
-            GC.Collect();
-            nuevoRecorrido = new Recorrido<Paciente>();
-            arbolPacientesAVL.InOrder(nuevoRecorrido);
-            ViewBag.Altura = "El árbol tiene una altura de " + arbolPacientesAVL.getAltura();
-            ViewBag.Nodes = "El árbol tiene  " + arbolPacientesAVL.getNodes() + " elementos.";
-            ViewData["Paciente"] = nuevoRecorrido.arbolEnLista;
-            return View();
-            */
-
-
-
         }
 
         public IActionResult recibirManualAVL()
@@ -131,79 +130,44 @@ namespace Proyecto_Hans_Sempe_1083920.Controllers
 
         public IActionResult guardarPacienteAVL(String _n1, String _n2, String _a1, String _a2, long _dpi, int _edad, int _phone, int _lastC, String  _descrip)
         {
+            DateTime timee = new DateTime();
             String _ProxConsulta;
           
             if(_descrip == "Sin Diagnostico previo" && _lastC >= 6)
             {
-                _ProxConsulta = "Limpieza Dental";
-                Paciente nuevoPaciente = new Paciente(_n1, _n2, _a1, _a2, _dpi, _edad, _phone, _lastC, _descrip, _ProxConsulta);
-                arbolPacientesAVL.Add(nuevoPaciente, new Models.Comparadores.ComparerDPI());
-                if (arbolPacientesAVL.getRotaciones() != 1)
-                {
-                    ViewBag.rotaciones = "Se realizaron " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
-                else
-                {
-                    ViewBag.rottaciones = "Se realizo " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
+                _ProxConsulta = "Limpieza Dental";             
             }
             else if (_descrip == "Ortodoncia" && _lastC >= 2)
             {
                 _ProxConsulta = "Tratamiento de ortodoncia";
-                Paciente nuevoPaciente = new Paciente(_n1, _n2, _a1, _a2, _dpi, _edad, _phone, _lastC, _descrip, _ProxConsulta);
-                arbolPacientesAVL.Add(nuevoPaciente, new Models.Comparadores.ComparerDPI());
-                if (arbolPacientesAVL.getRotaciones() != 1)
-                {
-                    ViewBag.rotaciones = "Se realizaron " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
-                else
-                {
-                    ViewBag.rottaciones = "Se realizo " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
             }
             else if(_descrip == "Caries" && _lastC >= 4)
             {
                 _ProxConsulta = "Tratamiento contra las caries";
-                Paciente nuevoPaciente = new Paciente(_n1, _n2, _a1, _a2, _dpi, _edad, _phone, _lastC, _descrip, _ProxConsulta);
-                arbolPacientesAVL.Add(nuevoPaciente, new Models.Comparadores.ComparerDPI());
-                if (arbolPacientesAVL.getRotaciones() != 1)
-                {
-                    ViewBag.rotaciones = "Se realizaron " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
-                else
-                {
-                    ViewBag.rottaciones = "Se realizo " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
             }
             else if (_descrip == "Otro" && _lastC == 6)
             {
                 _ProxConsulta = "Tratamiento específico";
-                Paciente nuevoPaciente = new Paciente(_n1, _n2, _a1, _a2, _dpi, _edad, _phone, _lastC, _descrip, _ProxConsulta);
-                arbolPacientesAVL.Add(nuevoPaciente, new Models.Comparadores.ComparerDPI());
-                if (arbolPacientesAVL.getRotaciones() != 1)
-                {
-                    ViewBag.rotaciones = "Se realizaron " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
-                else
-                {
-                    ViewBag.rottaciones = "Se realizo " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
             }
             else
             {
                 _ProxConsulta = "Sin tratamiento especifico recomendaro";
-                Paciente nuevoPaciente = new Paciente(_n1, _n2, _a1, _a2, _dpi, _edad, _phone, _lastC, _descrip, _ProxConsulta);
-                arbolPacientesAVL.Add(nuevoPaciente, new Models.Comparadores.ComparerDPI());
-                if (arbolPacientesAVL.getRotaciones() != 1)
-                {
-                    ViewBag.rotaciones = "Se realizaron " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
-                else
-                {
-                    ViewBag.rottaciones = "Se realizo " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
-                }
             }
-            
+
+            Paciente nuevoPaciente = new Paciente(_n1, _n2, _a1, _a2, _dpi, _edad, _phone, _lastC, _descrip, _ProxConsulta);
+            arbolPacientesAVL.Add(nuevoPaciente, new Models.Comparadores.ComparerDPI());
+            timee = DateTime.Now;
+            if (arbolPacientesAVL.getRotaciones() != 1)
+            {
+                ViewBag.rotaciones = "Se realizaron " + arbolPacientesAVL.getRotaciones() + " rotaciones.";    
+                ViewBag.fecha = "Fecha y hora a la que se guardo el registro del paciente: " + timee;
+            }
+            else
+            {
+                ViewBag.rotaciones = "Se realizo " + arbolPacientesAVL.getRotaciones() + " rotaciones.";
+                ViewBag.fecha = "Fecha y hora a la que se guardo el registro del paciente: " + timee;
+            }
+
             return View();
         }
 
@@ -258,33 +222,35 @@ namespace Proyecto_Hans_Sempe_1083920.Controllers
             return View();
         }
 
-        public IActionResult Filtrar(String _Seguimiento)
+        public IActionResult Filtrar(int _Seguimiento)
         {
-
-            Paciente filtrado = new Paciente();
-            filtrado.NextConsulta = _Seguimiento;
-
             Recorrido<Paciente> Nrecorrido = new Recorrido<Paciente>();
             arbolPacientesAVL.InOrder(Nrecorrido);
-            AVLTree<Paciente> buscarFiltro = new AVLTree<Paciente>();
+            arbolPacientesAVL = null;
+            GC.Collect();
 
-            foreach (var item in Nrecorrido.arbolEnLista as List<Paciente>)
+            if(_Seguimiento == 1)
             {
-                buscarFiltro.Add(item, new Models.Comparadores.ComparerDPIfiltrados());       
-            }
+                stopwatch.Reset();
+                stopwatch.Start();
+                arbolPacientesAVL = new AVLTree<Paciente>();
 
-            foreach( var item in Nrecorrido.arbolEnLista as List<Paciente>)
-            {
-                if (buscarFiltro.Contains(filtrado, new Models.Comparadores.ComparerDPIfiltrados()))
+                foreach (var item in Nrecorrido.arbolEnLista as List<Paciente>)
                 {
-                    Paciente encontrado = buscarFiltro.Find(filtrado, new Models.Comparadores.ComparerDPIfiltrados());
-                    ViewBag.PacienteFound = "Aplicar seguimiento de " + encontrado.NextConsulta + " a " + encontrado.Nombre1 + " " + encontrado.Apellido1 + "  ";
-                    ViewBag.comparaciones = "";
+                    arbolPacientesAVL.Add(item, new Models.Comparadores.ComparerDPIfiltrados());
                 }
+                Nrecorrido = null;
+                stopwatch.Stop();
+                var tiempo = stopwatch.ElapsedMilliseconds;
+                ViewBag.tiempo = "Tardó " + tiempo + " ms o " + stopwatch.ElapsedTicks + " ticks en ordenarse.";
             }
 
-           
-
+            GC.Collect();
+            Nrecorrido = new Recorrido<Paciente>();
+            arbolPacientesAVL.InOrder(Nrecorrido);
+            ViewBag.Altura = "El árbol tiene una altura de " + arbolPacientesAVL.getAltura();
+            ViewBag.Nodes = "El árbol tiene  " + arbolPacientesAVL.getNodes() + " elementos.";
+            ViewData["Paciente"] = Nrecorrido.arbolEnLista;
             return View();
         }
 

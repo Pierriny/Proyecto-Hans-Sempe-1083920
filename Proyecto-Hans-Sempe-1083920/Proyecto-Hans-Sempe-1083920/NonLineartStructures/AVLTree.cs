@@ -5,11 +5,20 @@ using System.Text;
 using System.Linq;
 using System.Threading.Tasks;
 using Proyecto_Hans_Sempe_1083920.ADT;
+using System.IO;
+
+//Se utilizo el mismo árbol avl que se creo en el lbaoratorio 3
 
 namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
 {
     public class AVLTree<T>
     {
+
+        String folder = @"C:\Users\hanse\Documents\2022PrimerCiclo\EstructuraDeDatos\Lab\Proyecto\Proyecto-Hans-Sempe-1083920\Proyecto-Hans-Sempe-1083920";
+
+        String filename = @"Analisis.txt";
+
+        DateTime fechahora = new DateTime();
 
         private NodeAVL<T> Raiz;
         private int Comparaciones { get; set; }
@@ -38,10 +47,21 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
         }
         public int getComparaciones()
         {
+
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X =  "Se realizaron" + Convert.ToString( Comparaciones) + " comparaciones, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return Comparaciones;
         }
         public int getAltura()
         {
+            
+
             int n = 0;
             if (this.Raiz != null)
             {
@@ -56,6 +76,14 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
         }
         public int getRotaciones()
         {
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X = "Se realizaron" + Convert.ToString(rotaciones) + " Rotaciones, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return rotaciones;
         }
         public int getNodes()
@@ -97,30 +125,7 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
         {
             return Contains(this.Raiz, item, comparer);
         }
-        public virtual Boolean ContainsFiltrer(T item, IComparer<T> comparer)
-        {
-            return Filtrer(this.Raiz, item, comparer);
-        }
 
-        public virtual Boolean Filtrer(NodeAVL<T> raiz, T item, IComparer<T> comparer)
-        {
-            if (raiz == null)
-            {
-                return false;
-            }
-            if (comparer.Compare(item, raiz.value) < 0)
-            {
-                return Contains(raiz.Izquierda, item, comparer);
-            }
-            else
-            {
-                if (comparer.Compare(item, raiz.value) > 0)
-                {
-                    return Contains(raiz.Derecha, item, comparer);
-                }
-            }
-            return true;
-        }
         public virtual Boolean Contains(NodeAVL<T> raiz, T item, IComparer<T> comparer)
         {
             if (raiz == null)
@@ -140,6 +145,8 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
             }
             return true;
         }
+
+       
         public virtual T Find(T item, IComparer<T> comparer)
         {
             Comparaciones = 0;
@@ -249,6 +256,15 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
                     }
                 }
             }
+
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X = "Se realizaro una insercion, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return raiz;
         }
         public virtual void Remove(T item, IComparer<T> comparer)
@@ -309,6 +325,15 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
                     }
                 }
             }
+
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X = "Se realizaro una eliminacion, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return raiz;
         }
         public virtual NodeAVL<T> Replace(NodeAVL<T> n, NodeAVL<T> act, ref bool flag)
@@ -356,6 +381,15 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
                     }
                     break;
             }
+
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X = "Se realizaro una rotacion Left, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return n;
         }
         public virtual NodeAVL<T> RightBalance(NodeAVL<T> n, ref bool flag)
@@ -386,6 +420,15 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
                     n.balance = 0;
                     break;
             }
+
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X = "Se realizaro una rotacion Right, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return n;
         }
         public virtual NodeAVL<T> LeftLeftRotation(NodeAVL<T> n, NodeAVL<T> n1)
@@ -403,6 +446,15 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
                 n.balance = 1;
                 n1.balance = -1;
             }
+
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X = "Se realizaro una rotacion LeftLeft, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return n1;
         }
         public virtual NodeAVL<T> LeftRightRotation(NodeAVL<T> n, NodeAVL<T> n1)
@@ -416,6 +468,15 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
             n1.balance = (n2.balance == -1) ? 1 : 0;
             n.balance = (n2.balance == 1) ? -1 : 0;
             n2.balance = 0;
+
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X = "Se realizaro una rotacion LeftRight, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return n2;
         }
         public virtual NodeAVL<T> RightRightRotation(NodeAVL<T> n, NodeAVL<T> n1)
@@ -433,6 +494,15 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
                 n.balance = -1;
                 n1.balance = -1;
             }
+
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X = "Se realizaro una rotacion RightRight, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return n1;
         }
         public virtual NodeAVL<T> RightLeftRotation(NodeAVL<T> n, NodeAVL<T> n1)
@@ -446,6 +516,15 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
             n.balance = (n2.balance == -1) ? 1 : 0;
             n1.balance = (n2.balance == 1) ? -1 : 0;
             n2.balance = 0;
+
+            String fullPath = folder + filename;
+
+            fechahora = DateTime.Now;
+
+            String X = "Se realizaro una rotacion RightLeft, Fecha y hora: " + Convert.ToString(fechahora);
+
+            File.WriteAllText(fullPath, X);
+
             return n2;
         }
         public void Sort(IComparer<T> comparer)
@@ -457,6 +536,14 @@ namespace Proyecto_Hans_Sempe_1083920.NonLineartStructures
             }
 
         }
+
+        
+
+
+
+
+
+
 
 
 

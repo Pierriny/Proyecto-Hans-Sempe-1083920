@@ -1,0 +1,66 @@
+﻿@model Proyecto_Hans_Sempe_1083920.Models.Paciente
+
+@{
+    ViewData["Title"] = "recibirManualAVL";
+}
+
+
+<h4>Ingrese los siguientes datos del paciente:</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="guardarPacienteAVL">
+
+            <div class="form-group">
+                <label asp-for="Nombre1" class="control-label"></label>
+                <input asp-for="Nombre1" name="_n1" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre2" class="control-label"></label>
+                <input asp-for="Nombre2" name="_n2" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido1" class="control-label"></label>
+                <input asp-for="Apellido1" name="_a1" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido2" class="control-label"></label>
+                <input asp-for="Apellido2" name="_a2" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DPI" class="control-label"></label>
+                <input asp-for="DPI" name="_dpi" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Edad" class="control-label"></label>
+                <input type="number" asp-for="Edad" name="_edad" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" name="_phone" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="LastConsulta" class="control-label"></label>
+                <input type="number" asp-for="LastConsulta" name="_lastC" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Descripcion" class="control-label"></label>
+                <select asp-for="Descripcion" name="_descrip" class="form-control">
+                    <option value="Sin Diagnostico previo">Sin especificar</option>
+                    <option value="Ortodoncia">Ortodoncia</option>
+                    <option value="Caries">Caries</option>
+                    <option value="Otro">Otro</option>
+                </select>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

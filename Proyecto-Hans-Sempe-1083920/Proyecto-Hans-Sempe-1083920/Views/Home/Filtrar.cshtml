@@ -1,0 +1,58 @@
+﻿
+
+@{
+    ViewData["Title"] = "Filtrar";
+}
+
+
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h4>Datos del árbol AVL</h4>
+            <h4>@ViewBag.Altura</h4>
+            <h4>@ViewBag.Nodes</h4>
+            <label>Hora de reguistro: </label> @DateTime.Now
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+
+            <table class="table table-bordered table-striped">
+                <tr class="table-success">
+                    <th>DPI</th>
+                    <th>Primer Nombre</th>
+                    <th>Segundo nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Edad</th>
+                    <th>Telefono</th>
+                    <th>Meses desde ultima visita</th>
+                    <th>Ultimo diagnostico</th>
+                    <th>Seguimiento a aplicar</th>
+                </tr>
+                @foreach (var item in ViewData["Paciente"] as List<Paciente>)
+                {
+                    <tr>
+                        <td>@item.DPI</td>
+                        <td>@item.Nombre1</td>
+                        <td>@item.Nombre2</td>
+                        <td>@item.Apellido1</td>
+                        <td>@item.Apellido2</td>
+                        <td>@item.Edad</td>
+                        <td>@item.Telefono</td>
+                        <td>@item.LastConsulta</td>
+                        <td>@item.Descripcion</td>
+                        <td>@item.NextConsulta</td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to Home</a>
+</div>
+
